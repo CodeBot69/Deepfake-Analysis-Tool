@@ -1,0 +1,721 @@
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* ─── Header ────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.header {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  animation: fadeInUp 0.8s ease backwards;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.logoIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-glow);
+}
+
+.logoText {
+  font-size: 2rem;
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  font-weight: 400;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ─── Main Layout ───────────────────────────────────────── */
+.main {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.contentGrid.hasResults {
+  grid-template-columns: 1fr 420px;
+}
+
+@media (max-width: 1024px) {
+  .contentGrid.hasResults {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── Section Titles ────────────────────────────────────── */
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sectionTitle .icon {
+  font-size: 1.2rem;
+}
+
+/* ─── Upload Zone ───────────────────────────────────────── */
+.uploadContainer {
+  animation: fadeInUp 0.6s ease 0.1s backwards;
+}
+
+.uploadZone {
+  border: 2px dashed var(--border-glass);
+  border-radius: var(--radius-xl);
+  padding: 4rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background: var(--bg-glass);
+  position: relative;
+  overflow: hidden;
+}
+
+.uploadZone::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--accent-blue-glow), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.uploadZone:hover,
+.uploadZoneDragging {
+  border-color: var(--accent-blue);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.uploadZone:hover::before,
+.uploadZoneDragging::before {
+  opacity: 1;
+}
+
+.uploadIcon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.uploadTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.uploadSubtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.uploadFormats {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.formatBadge {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--accent-blue);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.fileInput {
+  display: none;
+}
+
+/* ─── File Preview ──────────────────────────────────────── */
+.filePreview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  margin-top: 1.5rem;
+}
+
+.fileIcon {
+  font-size: 2rem;
+}
+
+.fileInfo {
+  flex: 1;
+}
+
+.fileName {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.fileSize {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.removeBtn {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--accent-red);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all var(--transition-fast);
+}
+
+.removeBtn:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.analyzeBtn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem 2rem;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: var(--font-sans);
+  box-shadow: 0 4px 20px var(--accent-blue-glow);
+}
+
+.analyzeBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--accent-blue-glow);
+}
+
+.analyzeBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Progress ──────────────────────────────────────────── */
+.progressContainer {
+  animation: fadeInUp 0.5s ease backwards;
+}
+
+.progressCard {
+  padding: 2rem;
+}
+
+.progressHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.progressTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(99, 102, 241, 0.2);
+  border-top-color: var(--accent-blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.progressPercent {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+.progressBarOuter {
+  height: 8px;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressBarInner {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px var(--accent-blue-glow);
+}
+
+.progressStatus {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* ─── Results Dashboard ─────────────────────────────────── */
+.resultsContainer {
+  animation: fadeInUp 0.6s ease backwards;
+}
+
+.verdictCard {
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.verdictCard.fake {
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.verdictCard.real {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.verdictCard.fake::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.verdictCard.real::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.06), transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── Confidence Gauge ──────────────────────────────────── */
+.gaugeContainer {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.gauge {
+  transform: rotate(-90deg);
+}
+
+.gaugeBackground {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 8;
+}
+
+.gaugeProgress {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: gaugeGrow 1.5s ease forwards;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.gaugeProgress.fake {
+  stroke: var(--accent-red);
+  color: var(--accent-red);
+}
+
+.gaugeProgress.real {
+  stroke: var(--accent-green);
+  color: var(--accent-green);
+}
+
+.gaugeCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.gaugeScore {
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.gaugeScore.fake { color: var(--accent-red); }
+.gaugeScore.real { color: var(--accent-green); }
+
+.gaugeLabel {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.verdictBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.verdictBadge.fake {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--accent-red);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.verdictBadge.real {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.confidenceLabel {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* ─── Detector Breakdown ────────────────────────────────── */
+.breakdownCard {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.detectorRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.detectorRow:last-child {
+  border-bottom: none;
+}
+
+.detectorInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detectorIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.detectorIcon.spatial {
+  background: rgba(99, 102, 241, 0.15);
+}
+
+.detectorIcon.frequency {
+  background: rgba(34, 211, 238, 0.15);
+}
+
+.detectorIcon.lipsync {
+  background: rgba(245, 158, 11, 0.15);
+}
+
+.detectorName {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.detectorWeight {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.detectorScore {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.detectorBarOuter {
+  width: 100px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  margin-left: 1rem;
+  overflow: hidden;
+}
+
+.detectorBarInner {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+/* ─── Frame Player ──────────────────────────────────────── */
+.playerCard {
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.playerViewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.playerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.heatmapOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  transition: opacity var(--transition-base);
+  pointer-events: none;
+}
+
+.playerControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.playerBtn {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+}
+
+.playerBtn:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--accent-blue);
+}
+
+.playerBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.frameSlider {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  outline: none;
+}
+
+.frameSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--accent-blue-glow);
+}
+
+.frameInfo {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  min-width: 60px;
+  text-align: right;
+}
+
+.heatmapToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  border: none;
+}
+
+.toggle.active {
+  background: rgba(99, 102, 241, 0.4);
+}
+
+.toggleKnob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: transform var(--transition-fast);
+}
+
+.toggle.active .toggleKnob {
+  transform: translateX(20px);
+}
+
+.toggleLabel {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ─── New Analysis Button ───────────────────────────────── */
+.newAnalysisBtn {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: var(--font-sans);
+}
+
+.newAnalysisBtn:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 20px var(--accent-blue-glow);
+}
+
+/* ─── Frame Score Timeline ──────────────────────────────── */
+.timelineCard {
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.timeline {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 80px;
+  padding-top: 10px;
+}
+
+.timelineBar {
+  flex: 1;
+  min-width: 4px;
+  border-radius: 2px 2px 0 0;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.timelineBar:hover {
+  opacity: 1;
+  transform: scaleY(1.1);
+  transform-origin: bottom;
+}
+
+.timelineBar.active {
+  opacity: 1;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.timelineLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.timelineLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}

@@ -1,0 +1,36 @@
+# FastAPI & Server
+fastapi==0.115.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.9
+pydantic==2.9.0
+
+# Deep Learning
+torch==2.4.0
+torchvision==0.19.0
+timm==1.0.9
+
+# Image & Video Processing
+opencv-python-headless==4.10.0.84
+Pillow==10.4.0
+
+# Audio Processing
+librosa==0.10.2
+soundfile==0.12.1
+
+# Face Detection
+mediapipe==0.10.14
+
+# Scientific Computing
+numpy==1.26.4
+scipy==1.14.0
+
+# Visualization
+matplotlib==3.9.0
+
+# Testing
+pytest==8.3.0
+httpx==0.27.0
+
+# Utilities
+aiofiles==24.1.0
+uuid6==2024.7.10

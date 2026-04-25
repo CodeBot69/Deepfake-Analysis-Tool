@@ -1,0 +1,42 @@
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Pytest
+.pytest_cache/
+
+# Node.js
+node_modules/
+frontend/node_modules/
+frontend/.next/
+
+# Uploads and results
+uploads/
+results/
+
+# Environment files
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Test output files
+test_output.txt
+unit_test_output.txt
+integration_test_output.txt
+
+# Scratch files
+scratch.py
